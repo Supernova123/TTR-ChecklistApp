@@ -74,14 +74,14 @@ app.set('view engine', 'handlebars');
 app.set('views', `${__dirname}/../views`);
 app.use(cookieParser());
 
-//Csrf must come after cookieParser and app.use(session)
-//Comes before the router
+// Csrf must come after cookieParser and app.use(session)
+// Comes before the router
 app.use(csrf());
 app.use((err, req, res, next) => {
-    if(err.code !== 'EBADCSRFTOKEN') return next(err);
-    
-    console.log('Missing CSRF token');
-    return false;
+  if (err.code !== 'EBADCSRFTOKEN') return next(err);
+
+  console.log('Missing CSRF token');
+  return false;
 });
 
 router(app);
