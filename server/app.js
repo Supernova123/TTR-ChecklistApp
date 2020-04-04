@@ -36,11 +36,12 @@ let redisURL = {
   port: 12132,
 };
 
-const redisPASS = 'nJj5HkyXleGFn7E6esJ9pEnQFnE0iuPK';
+let redisPASS = 'nJj5HkyXleGFn7E6esJ9pEnQFnE0iuPK';
 if (process.env.REDISCLOUD_URL) {
   redisURL = url.parse(process.env.REDISCLOUD_URL);
-  redisPASS = redisURL.auth.split(':')[1];
+  [, redisPASS] = redisURL.auth.split(':');
 }
+
 const redisClient = redis.createClient({
   host: redisURL.hostname,
   port: redisURL.port,
