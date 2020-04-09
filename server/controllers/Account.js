@@ -6,10 +6,6 @@ const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
 };
 
-const signupPage = (req, res) => {
-  res.render('signup', { csrfToken: req.csrfToken() });
-};
-
 const logout = (req, res) => {
   req.session.destroy();
   res.redirect('/');
@@ -24,11 +20,13 @@ const login = (request, response) => {
   const password = `${req.body.pass}`;
 
   if (!username || !password) {
+    console.log('Account.js Login -> All fields are required called');
     return res.status(400).json({ error: 'RAWR! All fields are required' });
   }
 
   return Account.AccountModel.authenticate(username, password, (err, account) => {
     if (err || !account) {
+      console.log('Account.js Login -> Missing account called');
       return res.status(401).json({ error: 'Wrong username or password' });
     }
 
@@ -50,10 +48,12 @@ const signup = (request, response) => {
   req.body.pass2 = `${req.body.pass2}`;
 
   if (!req.body.username || !req.body.pass || !req.body.pass2) {
+    console.log('Account.js Signup -> All fields are required called');
     return res.status(400).json({ error: 'RAWR! All fields are required' });
   }
 
   if (req.body.pass !== req.body.pass2) {
+    console.log('Account.js Signup -> Non-matching passwords called');
     return res.status(400).json({ error: 'RAWR! Passwords do not match' });
   }
 
@@ -77,16 +77,29 @@ const signup = (request, response) => {
       console.log(err);
 
       if (err.code === 11000) {
+        console.log('Account.js Signup -> Username already in use called');
         return res.status(400).json({ error: 'Username already in use.' });
       }
 
+      console.log('Account.js Signup -> Error occurred called');
       return res.status(400).json({ error: 'An error occurred' });
     });
   });
 };
 
+const getToken = (request, response) => {
+  const req = request;
+  const res = response;
+
+  const csrfJSON = {
+    csrfToken: req.csrfToken(),
+  };
+
+  res.json(csrfJSON);
+};
+
 module.exports.loginPage = loginPage;
 module.exports.login = login;
 module.exports.logout = logout;
-module.exports.signupPage = signupPage;
 module.exports.signup = signup;
+module.exports.getToken = getToken;
