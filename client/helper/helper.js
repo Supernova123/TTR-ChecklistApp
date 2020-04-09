@@ -1,5 +1,5 @@
 const handleError = (message) => {
-    $("#errorMesage").text(message);
+    $("#errorMessage").text(message);
     $("#domoMessage").animate({width:'toggle'},350);
 };
 

@@ -113,7 +113,7 @@ $(document).ready(function () {
 "use strict";
 
 var handleError = function handleError(message) {
-  $("#errorMesage").text(message);
+  $("#errorMessage").text(message);
   $("#domoMessage").animate({
     width: 'toggle'
   }, 350);
