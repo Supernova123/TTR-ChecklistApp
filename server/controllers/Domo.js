@@ -29,6 +29,7 @@ const getDomos = (request, response) => {
 
 const makeDomo = (req, res) => {
   if (!req.body.name || !req.body.age) {
+    console.log('Domo.js makeDomo -> All fields are required called');
     return res.status(400).json({ error: 'RAWR! Both name and age are required' });
   }
 
@@ -47,6 +48,7 @@ const makeDomo = (req, res) => {
   domoPromise.catch((err) => {
     console.log(err);
     if (err.code === 11000) {
+      console.log('Domo.js domoData -> Domo already exists called');
       return res.status(400).json({ error: 'Domo already exists.' });
     }
 
