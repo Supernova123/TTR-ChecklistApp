@@ -5,7 +5,7 @@
 var handleToon = function handleToon(e) {
   e.preventDefault(); //Error message checking
 
-  $("#flippyMessage").animate({
+  $("#toonMessage").animate({
     width: 'hide'
   }, 350);
 
@@ -87,9 +87,11 @@ var ToonForm = function ToonForm(props) {
 var ToonList = function ToonList(props) {
   //Empty Toon check
   if (props.toons.length === 0) {
-    return (/*#__PURE__*/React.createElement("h3", {
+    return (/*#__PURE__*/React.createElement("div", {
+        className: "toonList"
+      }, /*#__PURE__*/React.createElement("h3", {
         className: "emptyToon"
-      }, "No Toons Yet")
+      }, "No Toons yet"))
     );
   }
 
@@ -159,14 +161,14 @@ $(document).ready(function () {
 //Handles errors
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
-  $("#flippyMessage").animate({
+  $("#toonMessage").animate({
     width: 'toggle'
   }, 350);
 }; //Hides Flippy error message
 
 
 var redirect = function redirect(response) {
-  $("#flippyMessage").animate({
+  $("#toonMessage").animate({
     width: 'hide'
   }, 350);
   window.location = response.redirect;

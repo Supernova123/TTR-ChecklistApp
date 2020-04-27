@@ -23,7 +23,7 @@ var handleToon = function handleToon(e) {
 }; //Creates the form to allow the user to add a toon
 
 
-var ToonForm = function ToonForm(props) {
+var ToonWindow = function ToonWindow(props) {
   return (/*#__PURE__*/React.createElement("form", {
       id: "toonForm",
       onSubmit: handleToon,
@@ -133,9 +133,9 @@ var loadToonsFromServer = function loadToonsFromServer() {
 
 
 var setup = function setup(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(ToonForm, {
+  ReactDOM.render( /*#__PURE__*/React.createElement(ToonWindow, {
     csrf: csrf
-  }), document.querySelector("#makeToon"));
+  }), document.querySelector("#currentWindow"));
   ReactDOM.render( /*#__PURE__*/React.createElement(ToonList, {
     toons: []
   }), document.querySelector("#toons"));
@@ -185,5 +185,53 @@ var sendAjax = function sendAjax(type, action, data, success) {
       var messageObj = JSON.parse(xhr.responseText);
       handleError(messageObj.error);
     }
+  });
+}; //Adds toons from Mongo if necessary
+
+
+var ToonList = function ToonList(props) {
+  //Empty Toon check
+  if (props.toons.length === 0) {
+    return (/*#__PURE__*/React.createElement("h3", {
+        className: "emptyToon"
+      }, "No Toons Yet")
+    );
+  }
+
+  if (props.toons.length >= 7) {
+    handleError("ToonTip: You can only have up to 6 toons!");
+    console.log("Toon.js ToonList -> Max number of toons called");
+    toons.push[6];
+  } //Displays created toons
+
+
+  var toonNodes = props.toons.map(function (toon) {
+    return (/*#__PURE__*/React.createElement("div", {
+        key: toon._id,
+        className: "toon"
+      }, /*#__PURE__*/React.createElement("h3", {
+        className: "toonName"
+      }, " Name: ", toon.name), /*#__PURE__*/React.createElement("h3", {
+        className: "toonSpecies"
+      }, " Species: ", toon.species), /*#__PURE__*/React.createElement("h3", {
+        className: "toonColor"
+      }, " Color: ", toon.color), /*#__PURE__*/React.createElement("h3", {
+        className: "toonHouse"
+      }, " House: ", toon.house))
+    );
+  }); //Returns toon list
+
+  return (/*#__PURE__*/React.createElement("div", {
+      className: "toonList"
+    }, toonNodes)
+  );
+}; //Loads toon from the server
+
+
+var loadToonsFromServer = function loadToonsFromServer() {
+  sendAjax('GET', '/getToons', null, function (data) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(ToonList, {
+      toons: data.toons
+    }), document.querySelector("#toons"));
   });
 };

@@ -4,6 +4,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    font-family: Arial,Roboto,Helvetica,sans-serif;
 }
 
 #logo {
@@ -11,13 +12,12 @@ html, body {
     width: 40;
     padding-top: 5px;
     float:left;
-    border-radius: 8px;
 }
 
 nav {
     width: 100%;
     height: 50px;
-    background-color: #55acee;
+    background-color: #1a5493;
 }
 
 nav:nth-child(1) {
@@ -38,27 +38,26 @@ nav:nth-child(1) {
     text-decoration: none;
     padding: 5px;
     border-radius: 4px;
-    background-color: #55acee;
+    background-color: #1a5493;
     transition: background-color 0.4s ease;
 }
 
 .navlink a:hover {
-    transition: background-color 0.8s ease;
-    background-color: #66bdff;
+    transition: background-color 0.4s ease;
+    background-color: orange;
 }
 
-.domoForm {
-    border: 2px solid #338acc;
+.toonForm {
     height: 35px;
-    width: 700px;
+    width: 1000px;
     margin-top:0px;
     padding-top:10px;
-    background-color: #55acee;
+    background-color: #1a5493;
     border-bottom-right-radius: 4px;
     border-top-right-radius: 4px;
 }
 
-.domoForm label {
+.toonForm label {
     display: inline-block;
     width: 75px;
     margin-left: 10px;
@@ -67,27 +66,27 @@ nav:nth-child(1) {
     color: white;
 }
 
-.domoForm input[type=text] {
+.toonForm input[type=text] {
     float:left;
 }
 
-.makeDomoSubmit {
+.makeToonSubmit {
     transition: background-color 0.4s ease;
     display: inline;
     width: 90px;
-    background-color: #55acee;
+    background-color: #1a5493;
     border-radius: 2px;
     color: white;
     text-decoration: none;
 }
 
-.makeDomoSubmit:link, .makeDomoSubmit:visited, .makeDomoSubmit:hover, .makeDomoSubmit:active {
+.makeToonSubmit:link, .makeToonSubmit:visited, .makeToonSubmit:hover, .makeToonSubmit:active {
     color: white;
 }
 
-.makeDomoSubmit:hover {
+.makeToonSubmit:hover {
     transition: background-color 0.4s ease;
-    background-color: #338acc;
+    background-color: orange;
 }
 
 .mainForm {
@@ -117,10 +116,11 @@ nav:nth-child(1) {
     margin: 0 auto;
     margin-top: 14px;
     font-size: 1.2em;
-    width: 100px;
-    background-color: #55acee;
+    font-family:Arial,Roboto,Helvetica,sans-serif;
+    width: 200px;
+    background-color: #1a5493;
     border-radius: 2px;
-    border-color: #66acee;
+    border-color: #2b5493;
     padding: 3px 0px;
     color: white;
     text-decoration: none;
@@ -132,7 +132,7 @@ nav:nth-child(1) {
 
 .formSubmit:hover {
     transition: background-color 0.4s ease;
-    background-color: #338acc;
+    background-color: orange;
 }
 
 #user, #pass, #pass2 {
@@ -144,10 +144,10 @@ nav:nth-child(1) {
 
 #user:focus, #pass:focus, #pass2:focus {
     outline: none;
-    box-shadow: 0px 0px 1px 1px #55acee;
+    box-shadow: 0px 0px 1px 1px #1a5493;
 }
 
-#domoMessage {
+#flippyMessage {
     display:none;
     top: 250px;
     width: 250px;
@@ -158,30 +158,24 @@ nav:nth-child(1) {
     overflow: hidden;
 }
 
-#domoMessage h3 {
+#flippyMessage h3 {
     width: 200px;
     position: absolute;
     top: 0px;
     left: 20px;
 }
 
-#speech {
-    height: 120px;
-    width: 250px;
-    z-index:300;
-}
-
 #errorMessage {
     font-size: 1.2em;
     font-weight: bold;
-    color: red;
-    font-style: italic;
+    color: black;
+    margin-bottom: 40px;
 }
 
-#domo {
+#flippy {
     z-index: 225;
-    margin-top: -20px;
-    margin-left: 135px;
+    margin-top: 120px;
+    margin-left: 115px;
     height: 450px;
     width: 300px;
     -ms-transform: rotate(330deg);
@@ -189,36 +183,65 @@ nav:nth-child(1) {
     transform: rotate(330deg);
 }
 
-#domos {
+#toons {
     width: 40%;
     min-width: 400px;
-    border: 2px solid #55acee;
+    border: 2px solid #1a5493;
     border-radius: 4px;
     margin: 0 auto;
     margin-top: 100px;
 }
 
-.domo {
+.toon {
     width: 95%;
     margin: 0 auto;
     margin-top: 2px;
     margin-bottom: 2px;
-    border: 2px solid #55acee;
     border-radius: 4px;
-    background-color: #55acee;
     padding: 10px;
-    min-height:60px;
+    min-height:200px;
     overflow: hidden;
 }
 
-.domo:hover {
-    transition: border-color 0.2s ease-out;
-    border-color: rgba(255,255,255, 0.8);
-    transition: background-color 2.6s ease-out;
-    background-color: #66bfff;
+.toon:nth-child(1) {
+    margin-top: 10px;
+    background-color: #fc4b51;
 }
 
-img.domoFace {
+.toon:nth-child(2) {
+    background-color: #a2dd4f;
+}
+
+.toon:nth-child(3) {
+    background-color: #8f55e7;
+}
+
+.toon:nth-child(4) {
+    background-color: #3fa7ff;
+}
+
+.toon:nth-child(5) {
+    background-color: #e960ba;
+}
+
+.toon:nth-child(6) {
+    margin-bottom:10px;
+    background-color: #f5d741;
+}
+
+.toon:hover {
+    transition: border-color 0.2s ease-out;
+    border-color: rgba(255,255,255, 0.8);
+    transition: background-color 0.4s ease-out;
+    background-color: orange;
+}
+
+.select-option {
+    margin-right: 20px;
+}
+
+/*
+img.eyes {
     margin-left: 25px;
     margin-right: 10px;
     height: 50px;
@@ -227,8 +250,9 @@ img.domoFace {
     margin-top:10px;
     float:left;
 }
+*/
 
-h3.emptyDomo {
+h3.emptyToon {
     width: 400px;
     font-size: 1.5em;
     margin: 0 auto;
@@ -236,7 +260,7 @@ h3.emptyDomo {
     margin-top: 18px;
 }
 
-h3.domoName {
+h3.toonName {
     float:left;
     width: 200px;
     font-weight: bold;
@@ -244,7 +268,7 @@ h3.domoName {
     font-size: 1.5em;
 }
 
-h3.domoAge {
+h3.toonSpecies {
     float:right;
     text-align: left;
     width: 100px;
@@ -253,10 +277,9 @@ h3.domoAge {
     font-size: 1.5em;
 }
 
-.domo:first-child {
-    margin-top: 10px;
-}
-
-.domo:last-child {
-    margin-bottom:10px;
+#advertisement{
+    position:absolute;
+    text-align: center;
+    background-color: blue;
+    padding:20px;
 }

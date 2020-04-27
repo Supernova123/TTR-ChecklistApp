@@ -1,13 +1,19 @@
+//Model for Account Pages
+
+//Requirements
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
+//Creates new Account Model
 let AccountModel = {};
 const iterations = 10000;
 const saltLength = 64;
 const keyLength = 64;
 
+
+//Creates a Schema for MonogoDB
 const AccountSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -30,12 +36,13 @@ const AccountSchema = new mongoose.Schema({
   },
 });
 
+//Sends the username and unique id of the user
 AccountSchema.statics.toAPI = (doc) => ({
-  // _id is built into your mongo document and is guaranteed to be unique
   username: doc.username,
   _id: doc._id,
 });
 
+//Validates an account's password
 const validatePassword = (doc, password, callback) => {
   const pass = doc.password;
 
@@ -47,6 +54,8 @@ const validatePassword = (doc, password, callback) => {
   });
 };
 
+
+//Searches for an account's username
 AccountSchema.statics.findByUsername = (name, callback) => {
   const search = {
     username: name,
@@ -55,12 +64,16 @@ AccountSchema.statics.findByUsername = (name, callback) => {
   return AccountModel.findOne(search, callback);
 };
 
+
+//Creates an encryped password for the user
 AccountSchema.statics.generateHash = (password, callback) => {
   const salt = crypto.randomBytes(saltLength);
 
   crypto.pbkdf2(password, salt, iterations, keyLength, 'RSA-SHA512', (err, hash) => callback(salt, hash.toString('hex')));
 };
 
+
+//Authenticates if an account exists
 AccountSchema.statics.authenticate = (username, password, callback) => {
   AccountModel.findByUsername(username, (err, doc) => {
     if (err) {
@@ -81,7 +94,9 @@ AccountSchema.statics.authenticate = (username, password, callback) => {
   });
 };
 
+//Finalizes the Account model
 AccountModel = mongoose.model('Account', AccountSchema);
 
+//Exports functions to Model Index
 module.exports.AccountModel = AccountModel;
 module.exports.AccountSchema = AccountSchema;

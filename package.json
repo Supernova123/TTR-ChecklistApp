@@ -5,15 +5,15 @@
     "node": "12.16.0",
     "npm": "6.13.7"
   },
-  "description": "A Simple Login Example using Node.js, Mongo and Redis",
+  "description": "A 100% completion companion app for Toontown Rewritten",
   "main": "./server/app.js",
   "scripts": {
     "buildLoginBundle": "babel ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
-    "buildAppBundle": "babel ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/bundle.js",
+    "buildToonBundle": "babel ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/toonBundle.js",
     "nodemon": "nodemon --watch ./server ./server/app.js",
-    "build": "npm run buildLoginBundle && npm run buildAppBundle",
+    "build": "npm run buildLoginBundle && npm run buildToonBundle",
     "watchLoginBundle": "babel --watch ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
-    "watchAppBundle": "babel --watch ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/bundle.js",
+    "watchToonBundle": "babel --watch ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/toonBundle.js",
     "start": "node ./server/app.js",
     "pretest": "eslint ./server --fix",
     "test": "echo \"Tests complete\""
@@ -24,7 +24,7 @@
     "Redis",
     "Login"
   ],
-  "author": "Cody Van De Mark",
+  "author": "Matthew Castronova",
   "license": "Apache 2.0",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
