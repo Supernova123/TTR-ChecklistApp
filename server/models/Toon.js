@@ -62,12 +62,11 @@ ToonSchema.statics.toAPI = (doc) => ({
       species: doc.species,
       color: doc.color,
       house: doc.house,
-      laff: doc.laff,
-      gagTracks: doc.gaTracks,
-      gagPouch: doc.gagPouch,
-      jellybeanBag: doc.jellybeanBag,
-      taskCapapcity: doc.taskCapapcity,
-      tpAccess: doc.tpAccess
+});
+
+//Creates a new Checklist object
+const ChecklistSchema = new mongoose.Schema({
+    
 });
 
 //Authenticates if a toon exists with an account
@@ -76,7 +75,7 @@ ToonSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return ToonModel.find(search).select('name species color house laff gagTracks gagPouch jellybeanBag taskCapacity tpAccess').lean().exec(callback);
+  return ToonModel.find(search).select('name species color house').lean().exec(callback);
 };
 
 //Finalizes the Maker model

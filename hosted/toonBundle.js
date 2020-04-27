@@ -23,7 +23,7 @@ var handleToon = function handleToon(e) {
 }; //Creates the form to allow the user to add a toon
 
 
-var ToonWindow = function ToonWindow(props) {
+var ToonForm = function ToonForm(props) {
   return (/*#__PURE__*/React.createElement("form", {
       id: "toonForm",
       onSubmit: handleToon,
@@ -96,7 +96,8 @@ var ToonList = function ToonList(props) {
   if (props.toons.length >= 7) {
     handleError("ToonTip: You can only have up to 6 toons!");
     console.log("Toon.js ToonList -> Max number of toons called");
-    toons.push[6];
+    toons.remove(6);
+    console.log(props.toons.length);
   } //Displays created toons
 
 
@@ -133,9 +134,9 @@ var loadToonsFromServer = function loadToonsFromServer() {
 
 
 var setup = function setup(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(ToonWindow, {
+  ReactDOM.render( /*#__PURE__*/React.createElement(ToonForm, {
     csrf: csrf
-  }), document.querySelector("#currentWindow"));
+  }), document.querySelector("#makeToon"));
   ReactDOM.render( /*#__PURE__*/React.createElement(ToonList, {
     toons: []
   }), document.querySelector("#toons"));

@@ -5,7 +5,7 @@
 var handleToon = function handleToon(e) {
   e.preventDefault(); //Error message checking
 
-  $("#toonMessage").animate({
+  $("#flippyMessage").animate({
     width: 'hide'
   }, 350);
 
@@ -87,18 +87,17 @@ var ToonForm = function ToonForm(props) {
 var ToonList = function ToonList(props) {
   //Empty Toon check
   if (props.toons.length === 0) {
-    return (/*#__PURE__*/React.createElement("div", {
-        className: "toonList"
-      }, /*#__PURE__*/React.createElement("h3", {
+    return (/*#__PURE__*/React.createElement("h3", {
         className: "emptyToon"
-      }, "No Toons yet"))
+      }, "No Toons Yet")
     );
   }
 
   if (props.toons.length >= 7) {
     handleError("ToonTip: You can only have up to 6 toons!");
     console.log("Toon.js ToonList -> Max number of toons called");
-    toons.push[6];
+    toons.remove(6);
+    console.log(props.toons.length);
   } //Displays created toons
 
 
@@ -161,14 +160,14 @@ $(document).ready(function () {
 //Handles errors
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
-  $("#toonMessage").animate({
+  $("#flippyMessage").animate({
     width: 'toggle'
   }, 350);
 }; //Hides Flippy error message
 
 
 var redirect = function redirect(response) {
-  $("#toonMessage").animate({
+  $("#flippyMessage").animate({
     width: 'hide'
   }, 350);
   window.location = response.redirect;
@@ -187,5 +186,53 @@ var sendAjax = function sendAjax(type, action, data, success) {
       var messageObj = JSON.parse(xhr.responseText);
       handleError(messageObj.error);
     }
+  });
+}; //Adds toons from Mongo if necessary
+
+
+var ToonList = function ToonList(props) {
+  //Empty Toon check
+  if (props.toons.length === 0) {
+    return (/*#__PURE__*/React.createElement("h3", {
+        className: "emptyToon"
+      }, "No Toons Yet")
+    );
+  }
+
+  if (props.toons.length >= 7) {
+    handleError("ToonTip: You can only have up to 6 toons!");
+    console.log("Toon.js ToonList -> Max number of toons called");
+    toons.push[6];
+  } //Displays created toons
+
+
+  var toonNodes = props.toons.map(function (toon) {
+    return (/*#__PURE__*/React.createElement("div", {
+        key: toon._id,
+        className: "toon"
+      }, /*#__PURE__*/React.createElement("h3", {
+        className: "toonName"
+      }, " Name: ", toon.name), /*#__PURE__*/React.createElement("h3", {
+        className: "toonSpecies"
+      }, " Species: ", toon.species), /*#__PURE__*/React.createElement("h3", {
+        className: "toonColor"
+      }, " Color: ", toon.color), /*#__PURE__*/React.createElement("h3", {
+        className: "toonHouse"
+      }, " House: ", toon.house))
+    );
+  }); //Returns toon list
+
+  return (/*#__PURE__*/React.createElement("div", {
+      className: "toonList"
+    }, toonNodes)
+  );
+}; //Loads toon from the server
+
+
+var loadToonsFromServer = function loadToonsFromServer() {
+  sendAjax('GET', '/getToons', null, function (data) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(ToonList, {
+      toons: data.toons
+    }), document.querySelector("#toons"));
   });
 };

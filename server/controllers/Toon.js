@@ -46,12 +46,12 @@ const makeToon = (req, res) => {
     species: req.body.species,
     color: req.body.color,
     house: req.body.house,
-    laff: req.body.laff,
-    gagTracks: req.body.gagTracks,
-    gagPouch: req.body.gagPouch,
-    jellybeanBag: req.body.jellybeanBag,
-    taskCapapcity: req.body.taskCapapcity,
-    tpAccess: req.body.tpAccess,
+//    laff: req.body.laff,
+//    gagTracks: req.body.gagTracks,
+//    gagPouch: req.body.gagPouch,
+//    jellybeanBag: req.body.jellybeanBag,
+//    taskCapapcity: req.body.taskCapapcity,
+//    tpAccess: req.body.tpAccess,
     owner: req.session.account._id,
   };
 
