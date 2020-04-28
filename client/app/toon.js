@@ -66,12 +66,12 @@ const ToonList = function(props) {
         );
     }
     
-        if(props.toons.length >= 7) {
-        handleError("ToonTip: You can only have up to 6 toons!");
-        console.log("Toon.js ToonList -> Max number of toons called")
-        toons.remove(6);
-        console.log(props.toons.length);
-        }
+//        if(props.toons.length >= 7) {
+//        handleError("ToonTip: You can only have up to 6 toons!");
+//        console.log("Toon.js ToonList -> Max number of toons called")
+//        toons.remove(6);
+//        console.log(props.toons.length);
+//        }
     
     //Displays created toons
     const toonNodes=props.toons.map(function(toon) {
