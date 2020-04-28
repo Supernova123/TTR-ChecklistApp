@@ -3,7 +3,7 @@
 //Imports functions from Model
 const models = require('../models');
 
-const { Toon } = models;
+const { Checklist } = models;
 
 //Creates default ChceklistMaker page
 const checklistPage = (req, res) => {
@@ -18,7 +18,7 @@ const checklistPage = (req, res) => {
 };
 
 //Gets toons from the user's account
-const getChecklist = (request, response) => {
+const checklist = (request, response) => {
   const req = request;
   const res = response;
 
@@ -30,7 +30,6 @@ const getChecklist = (request, response) => {
 
     return res.json({ toons: docs });
   });
-};
 
   //Creates new toon object
   const checklistData = {
@@ -48,20 +47,20 @@ const getChecklist = (request, response) => {
 
   checklistPromise.then(() => res.json({ redirect: '/checklist' }));
 
-  toonPromise.catch((err) => {
+  checklistPromise.catch((err) => {
     console.log(err);
     if (err.code === 11000) {
-      console.log('Toon.js toonData -> Toon already exists called');
-      return res.status(400).json({ error: 'ToonTip: That toon already exists' });
+      console.log('Checklist.js checklistData -> Checklist already exists called');
+      return res.status(400).json({ error: 'ToonTip: That checklist already exists' });
     }
 
     return res.status(400).json({ error: 'An error occurred' });
   });
 
   return toonPromise;
+    
 };
 
 //Exports functions to Controller index
 module.exports.checklistPage = checklistPage;
-module.exports.getChecklist = getChecklist;
-module.exports.makeChecklist = makChecklist;
+module.exports.checklist = checklist;
