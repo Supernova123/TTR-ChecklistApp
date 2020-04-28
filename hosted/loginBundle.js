@@ -45,32 +45,52 @@ var handleSignup = function handleSignup(e) {
 
   sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
   return false;
-}; //Handles Password Change Page errors and AJAX calls
-
-
-var handleChangePassword = function handleChangePassword(e) {
-  e.preventDefault(); //Password change page error messages
-
-  $("#flippyMessage").animate({
-    width: 'hide'
-  }, 350);
-
-  if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
-    handleError("ToonTip: All fields are required");
-    console.log("Client.js handleChangePass -> All fields required called");
-    return false;
-  }
-
-  if ($("#pass").val() !== $("#pass2").val()) {
-    handleError("ToonTip: Passwords do not match");
-    console.log("Client.js handleChangePass -> Matching passwords called");
-    return false;
-  } //Sends AJAX call
-
-
-  sendAjax('POST', $("#changePassForm").attr("action"), $("#changePassForm").serialize(), redirect);
-  return false;
-}; //Loads in Login Window Form
+}; ////Handles Password Change Page errors and AJAX calls
+//const handleChangePassword = (e) => {
+//    e.preventDefault();
+//    
+//    //Password change page error messages
+//    $("#flippyMessage").animate({width:'hide'},350);
+//    
+//    if($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
+//        handleError("ToonTip: All fields are required");
+//        console.log("Client.js handleChangePass -> All fields required called");
+//        return false;
+//    }
+//    
+//    if($("#pass").val() !== $("#pass2").val()) {
+//        handleError("ToonTip: Passwords do not match");
+//        console.log("Client.js handleChangePass -> Matching passwords called");
+//        return false;
+//    }
+//    
+//    //Sends AJAX call
+//    sendAjax('POST', $("#changePassForm").attr("action"), $("#changePassForm").serialize(), redirect);
+//    
+//    return false;
+//};
+//Handles About Page errors and AJAX calls
+//const handleAbout = (e) => {
+//    e.preventDefault();
+//    
+//    //Login error messages
+//    $('#flippyMessage').animate({width:'hide'}, 350);
+//    
+//    if($("#email").val() == ''){
+//        handleError("ToonTip: You need to put in your email");
+//        console.log("Client.js handleAbout -> Empty email called");
+//        return false;
+//    }
+//    
+//    //Check session token
+//    console.log($("input[name=_csrf]").val());
+//    
+//    //Sends AJAX call
+//    sendAjax('POST', $("#emailForm").attr("action"), $("#emailForm").serialize(), redirect);
+//    
+//    return false;
+//};
+//Loads in Login Window Form
 
 
 var LoginWindow = function LoginWindow(props) {
@@ -147,49 +167,30 @@ var SignupWindow = function SignupWindow(props) {
       value: "Sign Up"
     }))
   );
-}; //Loads in Password Change Form
-
-
-var ChangePassWindow = function ChangePassWindow(props) {
-  return (/*#__PURE__*/React.createElement("form", {
-      id: "changePassForm",
-      name: "changePassForm",
-      onSubmit: handleChangePassword,
-      action: "/changepassword",
-      method: "POST",
-      className: "mainForm"
-    }, /*#__PURE__*/React.createElement("label", {
-      htmlFor: "username"
-    }, "Username: "), /*#__PURE__*/React.createElement("input", {
-      id: "user",
-      type: "text",
-      name: "username",
-      placeholder: "username"
-    }), /*#__PURE__*/React.createElement("label", {
-      htmlFor: "pass"
-    }, "Password: "), /*#__PURE__*/React.createElement("input", {
-      id: "pass",
-      type: "password",
-      name: "pass",
-      placeholder: "password"
-    }), /*#__PURE__*/React.createElement("label", {
-      htmlFor: "pass2"
-    }, "Password: "), /*#__PURE__*/React.createElement("input", {
-      id: "pass2",
-      type: "password",
-      name: "pass2",
-      placeholder: "retype password"
-    }), /*#__PURE__*/React.createElement("input", {
-      type: "hidden",
-      name: "_csrf",
-      value: props.csrf
-    }), /*#__PURE__*/React.createElement("input", {
-      className: "formSubmit",
-      type: "submit",
-      value: "Change Password"
-    }))
-  );
-}; //Creates Login Window
+}; ////Loads in Password Change Form
+//const ChangePassWindow = (props) => {
+//    return (
+//        <form id="changePassForm"
+//            name="changePassForm"
+//            onSubmit={handleChangePassword}
+//            action="/changepassword"
+//            method="POST"
+//            className="mainForm"
+//            >
+//            
+//            <label htmlFor="oldPass">Old Passsword: </label>
+//            <input id="oldPass" type="password" name="oldPass" placeholder="Old Password"/>
+//            <label htmlFor="newPass">New Password: </label>
+//            <input id="newPass" type="password" name="newPass" placeholder="New Password"/>
+//            <label htmlFor="newPass2">Repeat New Password: </label>
+//            <input id="newPass2" type="password" name="newPass2" placeholder="New Password"/>
+//            <input type="hidden" name="_csrf" value={props.csrf} />
+//            <input className="formSubmit" type="submit" value="Change Password" />
+//        
+//        </form>
+//    );
+//};
+//Creates Login Window
 
 
 var createLoginWindow = function createLoginWindow(csrf) {
@@ -203,25 +204,33 @@ var createSignupWindow = function createSignupWindow(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(SignupWindow, {
     csrf: csrf
   }), document.querySelector("#content"));
-}; //Creates Password Change Window
-
-
-var createChangePassWindow = function createChangePassWindow(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(ChangePassWindow, {
-    csrf: csrf
-  }), document.querySelector("#content"));
-}; //Setups the necessary page and button functions
+}; ////Creates Password Change Window
+//const createChangePassWindow = (csrf) => {
+//    ReactDOM.render(
+//        <ChangePassWindow csrf={csrf} />,
+//        document.querySelector("#content")
+//    );
+//};
+//Setups the necessary page and button functions
 
 
 var setup = function setup(csrf) {
   var loginButton = document.querySelector("#loginButton");
-  var signupButton = document.querySelector("#signupButton");
-  var changePassButton = document.querySelector("#changePassButton");
-  changePassButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    createChangePassWindow(csrf);
-    return false;
-  });
+  var signupButton = document.querySelector("#signupButton"); //    const changePassButton = document.querySelector("#changePassButton");
+  //    const aboutButton = document.querySelector("#aboutButton");
+  //                
+  //    aboutButton.addEventListener("click", (e) => {
+  //        e.preventDefault();
+  //        createAboutWindow(csrf);
+  //        return false;
+  //    });
+  //    
+  //    changePassButton.addEventListener("click", (e) => {
+  //        e.preventDefault();
+  //        createChangePassWindow(csrf);
+  //        return false;
+  //    });
+
   signupButton.addEventListener("click", function (e) {
     e.preventDefault();
     createSignupWindow(csrf);
@@ -278,53 +287,5 @@ var sendAjax = function sendAjax(type, action, data, success) {
       var messageObj = JSON.parse(xhr.responseText);
       handleError(messageObj.error);
     }
-  });
-}; //Adds toons from Mongo if necessary
-
-
-var ToonList = function ToonList(props) {
-  //Empty Toon check
-  if (props.toons.length === 0) {
-    return (/*#__PURE__*/React.createElement("h3", {
-        className: "emptyToon"
-      }, "No Toons Yet")
-    );
-  }
-
-  if (props.toons.length >= 7) {
-    handleError("ToonTip: You can only have up to 6 toons!");
-    console.log("Toon.js ToonList -> Max number of toons called");
-    toons.push[6];
-  } //Displays created toons
-
-
-  var toonNodes = props.toons.map(function (toon) {
-    return (/*#__PURE__*/React.createElement("div", {
-        key: toon._id,
-        className: "toon"
-      }, /*#__PURE__*/React.createElement("h3", {
-        className: "toonName"
-      }, " Name: ", toon.name), /*#__PURE__*/React.createElement("h3", {
-        className: "toonSpecies"
-      }, " Species: ", toon.species), /*#__PURE__*/React.createElement("h3", {
-        className: "toonColor"
-      }, " Color: ", toon.color), /*#__PURE__*/React.createElement("h3", {
-        className: "toonHouse"
-      }, " House: ", toon.house))
-    );
-  }); //Returns toon list
-
-  return (/*#__PURE__*/React.createElement("div", {
-      className: "toonList"
-    }, toonNodes)
-  );
-}; //Loads toon from the server
-
-
-var loadToonsFromServer = function loadToonsFromServer() {
-  sendAjax('GET', '/getToons', null, function (data) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(ToonList, {
-      toons: data.toons
-    }), document.querySelector("#toons"));
   });
 };
