@@ -10,10 +10,16 @@
   "scripts": {
     "buildLoginBundle": "babel ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
     "buildAppBundle": "babel ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/appBundle.js",
+    "buildAboutBundle": "babel ./client/about ./client/helper --presets @babel/preset-react --out-file ./hosted/appBundle.js",
+    "buildChecklistBundle": "babel ./client/checklist ./client/helper --presets @babel/preset-react --out-file ./hosted/appBundle.js",
+    "buildPasswordBundle": "babel ./client/password ./client/helper --presets @babel/preset-react --out-file ./hosted/passwordBundle.js",
     "nodemon": "nodemon --watch ./server ./server/app.js",
-    "build": "npm run buildLoginBundle && npm run buildAppBundle",
+    "build": "npm run buildLoginBundle && npm run buildAppBundle && npm run buildAboutBundle && npm run buildChecklistBundle && npm run buildPasswordBundle",
     "watchLoginBundle": "babel --watch ./client/login ./client/helper --presets @babel/preset-react --out-file ./hosted/loginBundle.js",
     "watchAppBundle": "babel --watch ./client/app ./client/helper --presets @babel/preset-react --out-file ./hosted/appBundle.js",
+    "watchAboutBundle": "babel --watch ./client/about ./client/helper --presets @babel/preset-react --out-file ./hosted/aboutBundle.js",
+    "watchChecklistBundle": "babel --watch ./client/checklist ./client/helper --presets @babel/preset-react --out-file ./hosted/checklistBundle.js",
+    "watchPaswordBundle": "babel --watch ./client/password ./client/helper --presets @babel/preset-react --out-file ./hosted/passwordBundle.js",
     "start": "node ./server/app.js",
     "pretest": "eslint ./server --fix",
     "test": "echo \"Tests complete\""
