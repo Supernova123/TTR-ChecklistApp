@@ -91,14 +91,13 @@ var ToonList = function ToonList(props) {
         className: "emptyToon"
       }, "No Toons Yet")
     );
-  }
-
-  if (props.toons.length >= 7) {
-    handleError("ToonTip: You can only have up to 6 toons!");
-    console.log("Toon.js ToonList -> Max number of toons called");
-    toons.remove(6);
-    console.log(props.toons.length);
-  } //Displays created toons
+  } //        if(props.toons.length >= 7) {
+  //        handleError("ToonTip: You can only have up to 6 toons!");
+  //        console.log("Toon.js ToonList -> Max number of toons called")
+  //        toons.remove(6);
+  //        console.log(props.toons.length);
+  //        }
+  //Displays created toons
 
 
   var toonNodes = props.toons.map(function (toon) {
@@ -154,85 +153,3 @@ var getToken = function getToken() {
 $(document).ready(function () {
   getToken();
 });
-"use strict";
-
-//Helper.JS adds helper functions
-//Handles errors
-var handleError = function handleError(message) {
-  $("#errorMessage").text(message);
-  $("#flippyMessage").animate({
-    width: 'toggle'
-  }, 350);
-}; //Hides Flippy error message
-
-
-var redirect = function redirect(response) {
-  $("#flippyMessage").animate({
-    width: 'hide'
-  }, 350);
-  window.location = response.redirect;
-}; //Sends data to AJAX
-
-
-var sendAjax = function sendAjax(type, action, data, success) {
-  $.ajax({
-    cache: false,
-    type: type,
-    url: action,
-    data: data,
-    dataType: "json",
-    success: success,
-    error: function error(xhr, status, _error) {
-      var messageObj = JSON.parse(xhr.responseText);
-      handleError(messageObj.error);
-    }
-  });
-}; //Adds toons from Mongo if necessary
-
-
-var ToonList = function ToonList(props) {
-  //Empty Toon check
-  if (props.toons.length === 0) {
-    return (/*#__PURE__*/React.createElement("h3", {
-        className: "emptyToon"
-      }, "No Toons Yet")
-    );
-  }
-
-  if (props.toons.length >= 7) {
-    handleError("ToonTip: You can only have up to 6 toons!");
-    console.log("Toon.js ToonList -> Max number of toons called");
-    toons.push[6];
-  } //Displays created toons
-
-
-  var toonNodes = props.toons.map(function (toon) {
-    return (/*#__PURE__*/React.createElement("div", {
-        key: toon._id,
-        className: "toon"
-      }, /*#__PURE__*/React.createElement("h3", {
-        className: "toonName"
-      }, " Name: ", toon.name), /*#__PURE__*/React.createElement("h3", {
-        className: "toonSpecies"
-      }, " Species: ", toon.species), /*#__PURE__*/React.createElement("h3", {
-        className: "toonColor"
-      }, " Color: ", toon.color), /*#__PURE__*/React.createElement("h3", {
-        className: "toonHouse"
-      }, " House: ", toon.house))
-    );
-  }); //Returns toon list
-
-  return (/*#__PURE__*/React.createElement("div", {
-      className: "toonList"
-    }, toonNodes)
-  );
-}; //Loads toon from the server
-
-
-var loadToonsFromServer = function loadToonsFromServer() {
-  sendAjax('GET', '/getToons', null, function (data) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(ToonList, {
-      toons: data.toons
-    }), document.querySelector("#toons"));
-  });
-};
