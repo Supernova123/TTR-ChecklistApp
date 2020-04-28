@@ -1,106 +1,56 @@
 "use strict";
 
-//Toon.JS allows the user to create toons
-//Handles Toon Creation AJAX calls
-var handleToon = function handleToon(e) {
-  e.preventDefault(); //Error message checking
+//Checklist.JS allows the user to check off where they are in game
+var handleChecklist = function handleChecklist(e) {
+  e.preventDefault(); //Login error messages
 
-  $("#flippyMessage").animate({
+  $('#flippyMessage').animate({
     width: 'hide'
-  }, 350);
+  }, 350); //Check session token
 
-  if ($("#toonName").val() == '' || $("#toonSpecies").val() == '' || $("#toonColor").val() == '') {
-    handleError("ToonTip: All fields are required!");
-    console.log("Toon.js handleToon -> Empty field called");
-    return false;
-  } //Sends AJAX to server
-
-
-  sendAjax('POST', $("#toonForm").attr("action"), $("#toonForm").serialize(), function () {
-    loadToonsFromServer();
-  });
+  console.log($("input[name=_csrf]").val());
   return false;
-}; //Creates the form to allow the user to add a toon
+}; //Loads in About Window
 
 
-var ToonForm = function ToonForm(props) {
-  return (/*#__PURE__*/React.createElement("form", {
-      id: "toonForm",
-      onSubmit: handleToon,
-      name: "toonForm",
-      action: "/toons",
+var ChecklistWindow = function ChecklistWindow(props) {
+  return (
+    /*#__PURE__*/
+    //        <h1>What is TTR Checklist?</h1>
+    //        <h3>TTR Checklist is a companion application to Toontown Rewritten, a fanmade server for Disney's popular MMORPG Toontown Online. It allows a player to keep track of their in-game toon's progress, preventing the player from remembering everything</h3>
+    //        <h2>What is Toontown Online?</h2>
+    //        <h3>Toontown Online was a Massive Multiplayer Online Role-Playing Game created by Disney in 2003. It consisted of players entering the world of Mickey Mouse and friend as anthropromorphic characters known as "Toons." Together, everyone fights invading business-themed robots known as "Cogs" with slapstick comedy gags, including classics like cream pies, banana peels, and seltzer bottles, in order to take back Toontown!</h3>
+    //        <h2>Newsletter</h2>
+    //        <h3>Want to sign up for our Newsletter for updates on our application? Sign up down below! Don't worry, you'll be teleported back to the Login page once you're added to our system!</h3>
+    React.createElement("form", {
+      id: "emailForm",
+      name: "emailForm",
+      onSubmit: handleAbout,
+      action: "/about",
       method: "POST",
-      className: "toonForm"
+      className: "mainForm"
     }, /*#__PURE__*/React.createElement("label", {
-      htmlFor: "name"
-    }, "Name: "), /*#__PURE__*/React.createElement("input", {
-      id: "toonName",
+      htmlFor: "email"
+    }, "Email: "), /*#__PURE__*/React.createElement("input", {
+      id: "user",
       type: "text",
-      name: "name",
-      placeHolder: "Toon Name"
-    }), /*#__PURE__*/React.createElement("label", {
-      htmlFor: "species"
-    }, "Species: "), /*#__PURE__*/React.createElement("input", {
-      id: "toonSpecies",
-      type: "text",
-      name: "species",
-      placeholder: "Toon Species"
-    }), /*#__PURE__*/React.createElement("label", {
-      htmlFor: "color"
-    }, "Color: "), /*#__PURE__*/React.createElement("input", {
-      id: "toonColor",
-      type: "text",
-      name: "color",
-      placeholder: "Toon Color"
-    }), /*#__PURE__*/React.createElement("label", {
-      htmlFor: "house"
-    }, "House: "), /*#__PURE__*/React.createElement("select", {
-      className: "select-option",
-      id: "toonHouse",
-      name: "house"
-    }, /*#__PURE__*/React.createElement("option", {
-      selected: "selected",
-      value: "red"
-    }, "Red"), /*#__PURE__*/React.createElement("option", {
-      value: "green"
-    }, "Green"), /*#__PURE__*/React.createElement("option", {
-      value: "purple"
-    }, "Purple"), /*#__PURE__*/React.createElement("option", {
-      value: "blue"
-    }, "Blue"), /*#__PURE__*/React.createElement("option", {
-      value: "pink"
-    }, "Pink"), /*#__PURE__*/React.createElement("option", {
-      value: "yellow"
-    }, "Yellow")), /*#__PURE__*/React.createElement("input", {
+      name: "email",
+      placeholder: "email"
+    }), /*#__PURE__*/React.createElement("input", {
       type: "hidden",
       name: "_csrf",
       value: props.csrf
     }), /*#__PURE__*/React.createElement("input", {
-      className: "makeToonSubmit",
+      className: "formSubmit",
       type: "submit",
-      value: "Make Toon"
+      value: "Add Email"
     }))
   );
 }; //Adds toons from Mongo if necessary
 
 
-var ToonList = function ToonList(props) {
-  //Empty Toon check
-  if (props.toons.length === 0) {
-    return (/*#__PURE__*/React.createElement("h3", {
-        className: "emptyToon"
-      }, "No Toons Yet")
-    );
-  }
-
-  if (props.toons.length >= 7) {
-    handleError("ToonTip: You can only have up to 6 toons!");
-    console.log("Toon.js ToonList -> Max number of toons called");
-    toons.remove(6);
-    console.log(props.toons.length);
-  } //Displays created toons
-
-
+var Checklist = function Checklist(props) {
+  //Displays created toons
   var toonNodes = props.toons.map(function (toon) {
     return (/*#__PURE__*/React.createElement("div", {
         key: toon._id,
@@ -121,39 +71,7 @@ var ToonList = function ToonList(props) {
       className: "toonList"
     }, toonNodes)
   );
-}; //Loads toon from the server
-
-
-var loadToonsFromServer = function loadToonsFromServer() {
-  sendAjax('GET', '/getToons', null, function (data) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(ToonList, {
-      toons: data.toons
-    }), document.querySelector("#toons"));
-  });
-}; //Renders DOM according to toon creations
-
-
-var setup = function setup(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(ToonForm, {
-    csrf: csrf
-  }), document.querySelector("#makeToon"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(ToonList, {
-    toons: []
-  }), document.querySelector("#toons"));
-  loadToonsFromServer();
-}; //Gets session token
-
-
-var getToken = function getToken() {
-  sendAjax('GET', '/getToken', null, function (result) {
-    setup(result.csrfToken);
-  });
-}; //Gets token upon server load
-
-
-$(document).ready(function () {
-  getToken();
-});
+};
 "use strict";
 
 //Helper.JS adds helper functions
@@ -186,53 +104,5 @@ var sendAjax = function sendAjax(type, action, data, success) {
       var messageObj = JSON.parse(xhr.responseText);
       handleError(messageObj.error);
     }
-  });
-}; //Adds toons from Mongo if necessary
-
-
-var ToonList = function ToonList(props) {
-  //Empty Toon check
-  if (props.toons.length === 0) {
-    return (/*#__PURE__*/React.createElement("h3", {
-        className: "emptyToon"
-      }, "No Toons Yet")
-    );
-  }
-
-  if (props.toons.length >= 7) {
-    handleError("ToonTip: You can only have up to 6 toons!");
-    console.log("Toon.js ToonList -> Max number of toons called");
-    toons.push[6];
-  } //Displays created toons
-
-
-  var toonNodes = props.toons.map(function (toon) {
-    return (/*#__PURE__*/React.createElement("div", {
-        key: toon._id,
-        className: "toon"
-      }, /*#__PURE__*/React.createElement("h3", {
-        className: "toonName"
-      }, " Name: ", toon.name), /*#__PURE__*/React.createElement("h3", {
-        className: "toonSpecies"
-      }, " Species: ", toon.species), /*#__PURE__*/React.createElement("h3", {
-        className: "toonColor"
-      }, " Color: ", toon.color), /*#__PURE__*/React.createElement("h3", {
-        className: "toonHouse"
-      }, " House: ", toon.house))
-    );
-  }); //Returns toon list
-
-  return (/*#__PURE__*/React.createElement("div", {
-      className: "toonList"
-    }, toonNodes)
-  );
-}; //Loads toon from the server
-
-
-var loadToonsFromServer = function loadToonsFromServer() {
-  sendAjax('GET', '/getToons', null, function (data) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(ToonList, {
-      toons: data.toons
-    }), document.querySelector("#toons"));
   });
 };
