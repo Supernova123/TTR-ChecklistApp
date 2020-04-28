@@ -7,6 +7,10 @@ html, body {
     font-family: Arial,Roboto,Helvetica,sans-serif;
 }
 
+body{
+    background-image: url("img/ttr_logo.jpg");
+}
+
 #logo {
     height: 40px;
     width: 40;
